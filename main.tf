@@ -10,39 +10,22 @@ terraform {
 # Configure the AWS Provider
 provider "aws" {
   region     = "us-east-1"
-  access_key = "xxxxxxxx"
-  secret_key = "xxxxxxxx"
+  access_key = "AKIASVSHMXHQYE6EY62B"
+  secret_key = "oVLQplxkxPRorVGhaR+v4PPf/XU306j2+Vilmrt3"
 }
 
-variable "key_name" {}
-
-resource "tls_private_key" "example" {
-
-  algorithm = "RSA"
-
-  rsa_bits  = 4096
-
+resource "aws_key_pair" "terra_key" {
+  key_name   = var.key_name
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3JIKl0HIA1ebHljDBJ0DTLAoMELXc4GiJshguy6IT5dQt51oDFewakvAgqTziOa4KM6OcAYv8pKy0e1fqhjRqZ6q5MAvVaTJvOiZbMkTV8s03HfNsN8d9fSJfQ8TquMqL9Pfv2NqqTEQdS+7AND6IRlvObT0n+XzeFrthPT2Cg23WiXWtIUHul/DXnzCqj9O3+3bgnUsZBtIGZ4mmYKdG5vTF/8aLKISDzQalcpp0uZkTvUaGp5mGdRQf4vhfd9kCQOXsAGy2HoNh2fx5u6WWii4Q5SiVSO4cg61bYjFUNrMUyHg/JDgs7NKI0zhsCKF37eKAudAfFJXchqnyKFSn admin@DESKTOP-2HT7CI9"
 }
 
-resource "aws_key_pair" "generated_key" {
-
-  key_name   = "${var.key_name}"
-
-  public_key = "${tls_private_key.example.public_key_openssh}"
-
-}
-
-resource "aws_instance" "jenkins" {
+resource "aws_instance" "jenkin" {
   ami           = "ami-096fda3c22c1c990a" # RedHat 8.0 us-east-1
   instance_type = "t2.micro"
-  key_name      = "${aws_key_pair.generated_key.key_name}"
+  key_name      = aws_key_pair.terra_key.key_name
 
   tags = {
-    Name = "jenkins-server"
-  }
-  
-  credit_specification {
-    cpu_credits = "unlimited"
+    Name = "jenkins-srv"
   }
 
   user_data = <<EOF
