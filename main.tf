@@ -16,7 +16,7 @@ provider "aws" {
 
 resource "aws_key_pair" "terra_key" {
   key_name   = var.key_name
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3JIKl0HIA1ebHljDBJ0DTLAoMELXc4GiJshguy6IT5dQt51oDFewakvAgqTziOa4KM6OcAYv8pKy0e1fqhjRqZ6q5MAvVaTJvOiZbMkTV8s03HfNsN8d9fSJfQ8TquMqL9Pfv2NqqTEQdS+7AND6IRlvObT0n+XzeFrthPT2Cg23WiXWtIUHul/DXnzCqj9O3+3bgnUsZBtIGZ4mmYKdG5vTF/8aLKISDzQalcpp0uZkTvUaGp5mGdRQf4vhfd9kCQOXsAGy2HoNh2fx5u6WWii4Q5SiVSO4cg61bYjFUNrMUyHg/JDgs7NKI0zhsCKF37eKAudAfFJXchqnyKFSn admin@DESKTOP-2HT7CI9"
+  public_key = "ssh-rsa xxx"
 }
 
 resource "aws_instance" "jenkin" {
